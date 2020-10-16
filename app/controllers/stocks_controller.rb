@@ -1,0 +1,27 @@
+class StocksController < ApplicationController
+    skip_before_action :verify_authenticity_token
+
+    def search
+        if params[:stock].present?
+            @stock = Stock.new_lookup(params[:stock])
+            if @stock
+                respond_to do |format|
+                    format.js { render partial: 'users/result' }
+                end
+            else
+                respond_to do |format|
+                    flash.now[:alert] = "Please enter a valid symbol to search"
+                    format.js { render partial: 'users/result' }
+                end
+            end
+        else
+            respond_to do |format|
+                flash.now[:alert] = "Please enter a symbol to search"
+                format.js { render partial: 'users/result' }
+            end
+        end
+    end
+
+end
+
+   
