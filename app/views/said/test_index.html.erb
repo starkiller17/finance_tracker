@@ -1,0 +1,13 @@
+<h1>Test page</h1>
+<div class="container">
+    <%= form_for(:test_filter, :html => {role: 'form', id: 'test-form'}, url: test_index_params_path, :remote => false) do |f| %>
+        <%= f.label "Message", class: "center" %>
+        <%params_message = "Sin params"%>
+        <% if params[:message] %>
+            <% params_message = params[:message] %>
+        <% end %>
+        <%= f.text_field :message, class: "form-control center", value: params_message %>
+        <br/>
+        <%= f.submit "Send" , class: 'btn btn-success', data: { disable_with: false } %>
+    <% end %>
+</div>
